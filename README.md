@@ -1,3 +1,6 @@
+# 项目正在施工中
+
+
 # 🛠️ EF Core ModelSnapshot 转 Mermaid ER 图工具
 
 > 基于 Roslyn API 解析 EF Core ModelSnapshot 文件，自动生成 Mermaid 格式的 ER 图，助力数据库设计可视化。
