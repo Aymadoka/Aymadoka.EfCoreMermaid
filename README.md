@@ -44,6 +44,94 @@ graph TD
     C --> E[生成关系连线]
     D & E --> F[组合Mermaid语法]
 ```
+
+
+
+```mermaid
+classDiagram
+    class Program {
+        +Main(args: string[])
+    }
+    
+    class ConfigurationManager {
+        +LoadConfig(filePath: string): Config
+        +SaveConfig(config: Config, filePath: string)
+    }
+    
+    class SnapshotParser {
+        +ParseSnapshotFile(filePath: string): ModelMetadata
+        +ParseSnapshotType(type: Type): ModelMetadata
+    }
+    
+    class ModelMetadata {
+        -entities: List<EntityMetadata>
+        -relationships: List<RelationshipMetadata>
+        +AddEntity(entity: EntityMetadata)
+        +AddRelationship(relationship: RelationshipMetadata)
+        +GetEntities(): List<EntityMetadata>
+        +GetRelationships(): List<RelationshipMetadata>
+    }
+    
+    class EntityMetadata {
+        -name: string
+        -properties: List<PropertyMetadata>
+        +AddProperty(property: PropertyMetadata)
+        +GetProperties(): List<PropertyMetadata>
+        +GetName(): string
+    }
+    
+    class PropertyMetadata {
+        -name: string
+        -type: string
+        -isKey: bool
+        -isRequired: bool
+        +IsKey(): bool
+        +IsRequired(): bool
+        +GetName(): string
+        +GetType(): string
+    }
+    
+    class RelationshipMetadata {
+        -sourceEntity: string
+        -targetEntity: string
+        -relationshipType: RelationshipType
+        -navigationProperty: string
+        +GetSourceEntity(): string
+        +GetTargetEntity(): string
+        +GetRelationshipType(): RelationshipType
+        +GetNavigationProperty(): string
+    }
+    
+    class RelationshipType {
+        <<enumeration>>
+        +OneToOne
+        +OneToMany
+        +ManyToMany
+    }
+    
+    class MermaidGenerator {
+        +GenerateDiagram(metadata: ModelMetadata): string
+        +SaveDiagram(diagram: string, filePath: string)
+    }
+    
+    class ConsoleRenderer {
+        +RenderHelp()
+        +RenderSuccess(message: string)
+        +RenderError(message: string)
+        +RenderDiagramPreview(diagram: string)
+    }
+    
+    Program --> ConfigurationManager : 使用
+    Program --> SnapshotParser : 使用
+    Program --> MermaidGenerator : 使用
+    Program --> ConsoleRenderer : 使用
+    SnapshotParser --> ModelMetadata : 创建
+    ModelMetadata --> EntityMetadata : 包含
+    ModelMetadata --> RelationshipMetadata : 包含
+    EntityMetadata --> PropertyMetadata : 包含
+    RelationshipMetadata --> RelationshipType : 使用
+    MermaidGenerator --> ModelMetadata : 读取
+```
 <!-- 
 
 
