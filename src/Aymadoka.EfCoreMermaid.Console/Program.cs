@@ -36,16 +36,7 @@ namespace Aymadoka.EfCoreMermaid.Console
 
         static void Main(string[] args)
         {
-            using (DbContext context = new BloggingContext())
-            {
-                // 获取 User 实体的 Email 属性对应的数据库类型
-                string emailDbType = GetDatabaseType<Post>(context, "Content");
-
-                string aaa = GetDatabaseType<Blog>(context, "Url");
-            }
-
             var a = new EfCoreMermaidGenerator();
-
             System.Console.WriteLine(a.Generate());
         }
     }

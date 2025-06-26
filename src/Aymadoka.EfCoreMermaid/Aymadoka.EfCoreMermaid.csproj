@@ -3,12 +3,33 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
+
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <PackageId>Aymadoka.EfCoreMermaid</PackageId>
+	  <Version>0.1.0-alpha</Version>
+	  <Authors>Aymadoka</Authors>
+	  <PackageTags>EfCore;Mermaid;ER</PackageTags>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <RepositoryUrl>https://github.com/Aymadoka/Aymadoka.EfCoreMermaid</RepositoryUrl>
+	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
+	  <PackageDescription>
+		  欢迎使用 Aymadoka.Static.Extensions，这是一个专为C#开发者设计的静态扩展库，旨在通过提供丰富的时间处理、字符串操作、数组管理、哈希值计算及序列化支持来简化日常开发工作。无论您是构建Web应用、桌面软件还是移动解决方案，Aymadoka.Static.Extensions 都能为您提供所需的工具和灵活性，使编码变得更简单、更快速。
+	  </PackageDescription>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis" Version="4.14.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5" />
+		<None Include="icon.png">
+			<Pack>True</Pack>
+			<PackagePath>icon.png</PackagePath>
+		</None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 </Project>
