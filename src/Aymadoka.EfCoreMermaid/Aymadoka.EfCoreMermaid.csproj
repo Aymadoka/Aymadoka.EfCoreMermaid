@@ -6,7 +6,7 @@
 
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <PackageId>Aymadoka.EfCoreMermaid</PackageId>
-	  <Version>0.1.0-alpha</Version>
+	  <Version>0.1.1-alpha</Version>
 	  <Authors>Aymadoka</Authors>
 	  <PackageTags>EfCore;Mermaid;ER</PackageTags>
 	  <PackageIcon>icon.png</PackageIcon>
