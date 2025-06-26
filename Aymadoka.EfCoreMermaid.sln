@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{5F3B8E
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aymadoka.EfCoreMermaid.Console", "src\Aymadoka.EfCoreMermaid.Console\Aymadoka.EfCoreMermaid.Console.csproj", "{33EECA2D-FE88-4544-9217-CC022DDFAEBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D832D0E9-1579-7362-8370-183042F83FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D832D0E9-1579-7362-8370-183042F83FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D832D0E9-1579-7362-8370-183042F83FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33EECA2D-FE88-4544-9217-CC022DDFAEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33EECA2D-FE88-4544-9217-CC022DDFAEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33EECA2D-FE88-4544-9217-CC022DDFAEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33EECA2D-FE88-4544-9217-CC022DDFAEBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{BF11A092-12FE-9E17-D820-3BA4924CE499} = {493907C6-C3D7-461F-A7AA-41E1E3BD369B}
 		{D832D0E9-1579-7362-8370-183042F83FA3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{33EECA2D-FE88-4544-9217-CC022DDFAEBB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BE6698C-533F-4659-9370-4C205A384E77}
