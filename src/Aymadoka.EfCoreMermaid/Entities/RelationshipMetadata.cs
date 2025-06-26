@@ -1,3 +1,5 @@
+using Aymadoka.EfCoreMermaid.Extensions;
+
 namespace Aymadoka.EfCoreMermaid.Entities
 {
     public class RelationshipMetadata

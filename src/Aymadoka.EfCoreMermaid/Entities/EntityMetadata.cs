@@ -1,3 +1,4 @@
+using Aymadoka.EfCoreMermaid.Extensions;
 using System.Collections.Generic;
 
 namespace Aymadoka.EfCoreMermaid.Entities

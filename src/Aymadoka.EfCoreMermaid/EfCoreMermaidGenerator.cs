@@ -1,7 +1,6 @@
 using Aymadoka.EfCoreMermaid.Entities;
 using Aymadoka.EfCoreMermaid.Extensions;
 using Aymadoka.EfCoreMermaid.Snapshots;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;

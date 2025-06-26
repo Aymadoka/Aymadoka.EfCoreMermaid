@@ -44,15 +44,15 @@ namespace Aymadoka.EfCoreMermaid.Snapshots
                             })
                             .ToList();
 
-                        var entityMetadata = new EntityMetadata(entityType.Name.LastPart("."), properties);
+                        var entityMetadata = new EntityMetadata(entityType.GetTableName(), properties);
                         modelMetadata.AddEntity(entityMetadata);
 
 
                         entityType.GetForeignKeys()
                             .ForEach(relationship =>
                             {
-                                var sourceEntity = relationship.DeclaringEntityType.DisplayName();
-                                var targetEntity = relationship.PrincipalEntityType.DisplayName();
+                                var sourceEntity = relationship.DeclaringEntityType.GetTableName();
+                                var targetEntity = relationship.PrincipalEntityType.GetTableName();
 
                                 // 修正关系类型判断逻辑
                                 RelationshipType relationshipType;
@@ -70,8 +70,8 @@ namespace Aymadoka.EfCoreMermaid.Snapshots
                                 string navigationProperty = relationship.DependentToPrincipal?.Name ?? relationship.PrincipalToDependent?.Name ?? string.Empty;
 
                                 var relationshipMetadata = new RelationshipMetadata(
-                                    sourceEntity.LastPart("."),
-                                    targetEntity.LastPart("."),
+                                    sourceEntity,
+                                    targetEntity,
                                     relationshipType,
                                     navigationProperty);
 
