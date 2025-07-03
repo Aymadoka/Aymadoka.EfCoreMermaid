@@ -9,9 +9,17 @@ using Aymadoka.EfCoreMermaid.Extensions;
 
 namespace Aymadoka.EfCoreMermaid.Snapshots
 {
+    /// <summary>
+    /// 提供用于解析 EF Core 快照并生成模型元数据的功能
+    /// </summary>
     public static class SnapshotParser
     {
-        public static ModelMetadata ParseSnapshotType(Type snapshotType)
+        /// <summary>
+        /// 解析指定类型的快照，生成模型元数据
+        /// </summary>
+        /// <param name="snapshotType">快照类型，通常为继承自 <see cref="ModelSnapshot"/> 的类型</param>
+        /// <returns>解析得到的 <see cref="ModelMetadata"/> 实例</returns>
+        public static ModelMetadata ParseSnapshot(Type snapshotType)
         {
             var modelMetadata = new ModelMetadata();
 
@@ -47,7 +55,6 @@ namespace Aymadoka.EfCoreMermaid.Snapshots
                         var entityMetadata = new EntityMetadata(entityType.GetTableName(), properties);
                         modelMetadata.AddEntity(entityMetadata);
 
-
                         entityType.GetForeignKeys()
                             .ForEach(relationship =>
                             {
@@ -55,14 +62,14 @@ namespace Aymadoka.EfCoreMermaid.Snapshots
                                 var targetEntity = relationship.PrincipalEntityType.GetTableName();
 
                                 // 修正关系类型判断逻辑
-                                RelationshipType relationshipType;
+                                EnumRelationshipType relationshipType;
                                 if (relationship.IsUnique)
                                 {
-                                    relationshipType = RelationshipType.OneToOne;
+                                    relationshipType = EnumRelationshipType.OneToOne;
                                 }
                                 else
                                 {
-                                    relationshipType = RelationshipType.OneToMany;
+                                    relationshipType = EnumRelationshipType.OneToMany;
                                 }
                                 // 多对多关系可根据需要扩展
 

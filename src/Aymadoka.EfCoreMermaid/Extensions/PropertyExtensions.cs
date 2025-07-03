@@ -1,9 +1,8 @@
-using Aymadoka.EfCoreMermaid.Entities;
+using System.Reflection;
+using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
+using Aymadoka.EfCoreMermaid.Entities;
 
 namespace Aymadoka.EfCoreMermaid.Extensions
 {

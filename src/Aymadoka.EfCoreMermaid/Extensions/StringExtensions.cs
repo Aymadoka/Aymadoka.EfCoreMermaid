@@ -1,5 +1,3 @@
-using System;
-
 namespace Aymadoka.EfCoreMermaid.Extensions
 {
     public static class StringExtensions

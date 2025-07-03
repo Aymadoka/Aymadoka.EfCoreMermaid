@@ -1,6 +1,5 @@
 using Aymadoka.EfCoreMermaid.Console.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
 
 namespace Aymadoka.EfCoreMermaid.Console
 {

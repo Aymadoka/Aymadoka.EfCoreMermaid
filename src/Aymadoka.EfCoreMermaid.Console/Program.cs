@@ -1,6 +1,7 @@
-using Aymadoka.EfCoreMermaid.Console.Entities;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Aymadoka.EfCoreMermaid.Generators;
+using Aymadoka.EfCoreMermaid.ConsoleInteractive;
 
 namespace Aymadoka.EfCoreMermaid.Console
 {
@@ -36,8 +37,12 @@ namespace Aymadoka.EfCoreMermaid.Console
 
         static void Main(string[] args)
         {
+            ConsoleRenderer.RenderHelp();
+
+            ConsoleRenderer.RenderSuccess("123213213");
             var a = new EfCoreMermaidGenerator();
-            System.Console.WriteLine(a.Generate());
+
+            ConsoleRenderer.RenderDiagramPreview(a.GenerateErDiagram());
         }
     }
 }

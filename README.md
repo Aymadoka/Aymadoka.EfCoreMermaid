@@ -58,9 +58,16 @@ classDiagram
         +SaveConfig(config: Config, filePath: string)
     }
     
+    class SnapshotScanner {
+        +DiscoverSnapshotTypes(): IEnumerable<Type>
+        +FindSnapshotAssemblies(): IEnumerable<Assembly>
+    }
+    
     class SnapshotParser {
-        +ParseSnapshotFile(filePath: string): ModelMetadata
-        +ParseSnapshotType(type: Type): ModelMetadata
+        +ParseSnapshot(snapshotType: Type): ModelMetadata
+        +ExtractEntityTypes(model: IModel): IEnumerable<EntityType>
+        +MapEntityProperties(entityType: EntityType): List<PropertyMetadata>
+        +ResolveRelationships(model: IModel): List<RelationshipMetadata>
     }
     
     class ModelMetadata {
@@ -74,44 +81,62 @@ classDiagram
     
     class EntityMetadata {
         -name: string
+        -schema: string
         -properties: List<PropertyMetadata>
+        -keys: List<PropertyMetadata>
+        -tableName: string
         +AddProperty(property: PropertyMetadata)
         +GetProperties(): List<PropertyMetadata>
         +GetName(): string
+        +GetSchema(): string
+        +GetTableName(): string
+        +GetKeys(): List<PropertyMetadata>
     }
     
     class PropertyMetadata {
         -name: string
-        -type: string
+        -clrType: Type
+        -columnType: string
         -isKey: bool
         -isRequired: bool
+        -maxLength: int
+        -defaultValue: object
         +IsKey(): bool
         +IsRequired(): bool
         +GetName(): string
-        +GetType(): string
+        +GetClrType(): Type
+        +GetColumnType(): string
+        +GetMaxLength(): int
+        +GetDefaultValue(): object
     }
     
     class RelationshipMetadata {
-        -sourceEntity: string
-        -targetEntity: string
-        -relationshipType: RelationshipType
+        -sourceEntity: EntityMetadata
+        -targetEntity: EntityMetadata
+        -relationshipType: EnumRelationshipType
         -navigationProperty: string
-        +GetSourceEntity(): string
-        +GetTargetEntity(): string
-        +GetRelationshipType(): RelationshipType
+        -foreignKeyProperties: List<PropertyMetadata>
+        +GetSourceEntity(): EntityMetadata
+        +GetTargetEntity(): EntityMetadata
+        +GetRelationshipType(): EnumRelationshipType
         +GetNavigationProperty(): string
+        +GetForeignKeyProperties(): List<PropertyMetadata>
     }
     
-    class RelationshipType {
+    class EnumRelationshipType {
         <<enumeration>>
         +OneToOne
         +OneToMany
         +ManyToMany
+        +Owned
     }
     
     class MermaidGenerator {
-        +GenerateDiagram(metadata: ModelMetadata): string
+        +GenerateErDiagram(metadata: ModelMetadata): string
+        +GenerateClassDiagram(metadata: ModelMetadata): string
         +SaveDiagram(diagram: string, filePath: string)
+        +GenerateEntityShape(entity: EntityMetadata): string
+        +GenerateRelationshipLine(relationship: RelationshipMetadata): string
     }
     
     class ConsoleRenderer {
@@ -122,15 +147,33 @@ classDiagram
     }
     
     Program --> ConfigurationManager : 使用
+    Program --> SnapshotScanner : 使用
     Program --> SnapshotParser : 使用
     Program --> MermaidGenerator : 使用
     Program --> ConsoleRenderer : 使用
+    
+    SnapshotScanner --> SnapshotParser : 提供类型
     SnapshotParser --> ModelMetadata : 创建
-    ModelMetadata --> EntityMetadata : 包含
-    ModelMetadata --> RelationshipMetadata : 包含
-    EntityMetadata --> PropertyMetadata : 包含
-    RelationshipMetadata --> RelationshipType : 使用
-    MermaidGenerator --> ModelMetadata : 读取
+    ModelMetadata "1" *-- "*" EntityMetadata : 包含
+    ModelMetadata "1" *-- "*" RelationshipMetadata : 包含
+    EntityMetadata "1" *-- "*" PropertyMetadata : 包含
+    RelationshipMetadata "1" -- "1" EnumRelationshipType : 使用
+    MermaidGenerator "1" --> "1" ModelMetadata : 读取
+    
+    %% EF Core 特定关系
+    class ModelSnapshot {
+        -Model: IModel
+        +GetModel(): IModel
+    }
+    
+    SnapshotParser --> ModelSnapshot : 分析
+    class IModel {
+        <<interface>>
+        +GetEntityTypes(): IEnumerable<EntityType>
+    }
+    
+    ModelSnapshot --> IModel : 实现
+    SnapshotParser --> IModel : 解析
 ```
 <!-- 
 
