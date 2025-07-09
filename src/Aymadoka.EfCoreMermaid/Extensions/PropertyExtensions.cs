@@ -6,7 +6,7 @@ using Aymadoka.EfCoreMermaid.Entities;
 
 namespace Aymadoka.EfCoreMermaid.Extensions
 {
-    public static class PropertyExtensions
+    internal static class PropertyExtensions
     {
         /// <summary>
         /// 获取属性的注释（Comment）或描述（DescriptionAttribute）。
@@ -14,7 +14,7 @@ namespace Aymadoka.EfCoreMermaid.Extensions
         /// </summary>
         /// <param name="property">EF Core 的属性元数据。</param>
         /// <returns>注释或描述，如果都没有则返回属性名。</returns>
-        public static string GetCommentOrDescription(this IProperty property)
+        internal static string GetCommentOrDescription(this IProperty property)
         {
             // 优先获取数据库注释
             var comment = property.GetComment();
@@ -37,7 +37,7 @@ namespace Aymadoka.EfCoreMermaid.Extensions
             return string.Empty;
         }
 
-        public static EnumEntityKey GetKeyConstraints(this IProperty property)
+        internal static EnumEntityKey GetKeyConstraints(this IProperty property)
         {
             var keyType = EnumEntityKey.None;
             if (property.IsPrimaryKey())
@@ -52,7 +52,7 @@ namespace Aymadoka.EfCoreMermaid.Extensions
             return keyType;
         }
 
-        public static bool IsRequired(this IProperty property)
+        internal static bool IsRequired(this IProperty property)
         {
             return !property.IsNullable;
         }

@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace Aymadoka.EfCoreMermaid.Extensions
 {
-    public static class EnumExtensions
+    internal static class EnumExtensions
     {
         /// <summary>
         /// 判断枚举类型是否带有 <see cref="FlagsAttribute"/> 特性
         /// </summary>
         /// <param name="this">要检查的枚举实例</param>
         /// <returns>如果枚举类型带有 <see cref="FlagsAttribute"/>，则返回 true；否则返回 false</returns>
-        public static bool IsFlags<TEnum>(this TEnum @this) where TEnum : Enum
+        internal static bool IsFlags<TEnum>(this TEnum @this) where TEnum : Enum
         {
             var type = @this.GetType();
             if (!type.IsEnum)
@@ -32,7 +32,7 @@ namespace Aymadoka.EfCoreMermaid.Extensions
         /// <param name="separator">当枚举为 Flags 类型且有多个值时，描述之间的分隔符，默认为 ", "</param>
         /// <returns>枚举值的描述信息；如果为 Flags 且未选中任何标志，则返回空字符串</returns>
         /// <exception cref="ArgumentNullException">当 <paramref name="this"/> 为 null 时抛出</exception>
-        public static string GetDescription<TEnum>(this TEnum @this, string separator = ", ") where TEnum : Enum
+        internal static string GetDescription<TEnum>(this TEnum @this, string separator = ", ") where TEnum : Enum
         {
             if (@this == null)
             {

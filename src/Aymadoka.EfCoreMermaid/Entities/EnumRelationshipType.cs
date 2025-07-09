@@ -3,7 +3,7 @@ namespace Aymadoka.EfCoreMermaid.Entities
     /// <summary>
     /// 表示实体之间的关系类型
     /// </summary>
-    public enum EnumRelationshipType
+    internal enum EnumRelationshipType
     {
         /// <summary>
         /// 一对一关系

@@ -7,7 +7,7 @@ namespace Aymadoka.EfCoreMermaid.Entities
     /// 表示实体键类型的枚举，支持位运算组合
     /// </summary>
     [Flags]
-    public enum EnumEntityKey
+    internal enum EnumEntityKey
     {
         /// <summary>无键类型</summary>
         None = 0, // 0

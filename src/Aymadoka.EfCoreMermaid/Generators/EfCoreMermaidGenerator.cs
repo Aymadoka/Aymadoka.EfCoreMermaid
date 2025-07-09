@@ -1,22 +1,24 @@
 using System;
 using System.Text;
+using Aymadoka.EfCoreMermaid.ConsoleInteractive;
 using Aymadoka.EfCoreMermaid.Entities;
 using Aymadoka.EfCoreMermaid.Extensions;
 using Aymadoka.EfCoreMermaid.Snapshots;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Aymadoka.EfCoreMermaid.Generators
 {
     /// <summary>
     /// 提供将 EF Core 模型元数据生成 Mermaid ER 图和类图的功能
     /// </summary>
-    public class EfCoreMermaidGenerator
+    public class EfCoreMermaidGenerator<T> where T : ModelSnapshot
     {
         /// <summary>
         /// 根据关系元数据获取 Mermaid ER 图的关系符号
         /// </summary>
         /// <param name="relationship">关系元数据</param>
         /// <returns>Mermaid ER 图关系符号</returns>
-        private string GetRelationshipSymbol(RelationshipMetadata relationship)
+        internal static string GetRelationshipSymbol(RelationshipMetadata relationship)
         {
             var relationSymbol = relationship.RelationshipType switch
             {
@@ -35,7 +37,7 @@ namespace Aymadoka.EfCoreMermaid.Generators
         /// </summary>
         /// <param name="modelMetadata">模型元数据</param>
         /// <returns>Mermaid ER 图文本</returns>
-        private string GenerateErDiagram(ModelMetadata modelMetadata)
+        internal static string GenerateErDiagram(ModelMetadata modelMetadata)
         {
             var sb = new StringBuilder();
             sb.AppendLine("erDiagram");
@@ -84,23 +86,28 @@ namespace Aymadoka.EfCoreMermaid.Generators
         /// <returns>Mermaid ER 图文本</returns>
         public string GenerateErDiagram()
         {
-            var modelSnapshotTypes = SnapshotScanner.GetAllModelSnapshotDerivedTypes();
+            ConsoleRenderer.RenderHelp();
 
-            var modelMetadata = SnapshotParser.ParseSnapshot(modelSnapshotTypes[0]);
+            try
+            {
+                var modelMetadata = SnapshotParser.ParseSnapshot(typeof(T));
 
-            var result = GenerateErDiagram(modelMetadata);
+                var result = GenerateErDiagram(modelMetadata);
 
-            return result;
-        }
+                ConsoleRenderer.RenderSuccess(typeof(T).Name);
 
-        /// <summary>
-        /// 生成 Mermaid 类图文本（尚未实现）
-        /// </summary>
-        /// <returns>Mermaid 类图文本</returns>
-        /// <exception cref="NotImplementedException">始终抛出，表示该方法尚未实现</exception>
-        public string GenerateClassDiagram()
-        {
-            throw new NotImplementedException("该方法尚未实现，计划在下个版本中完成");
+                ConsoleRenderer.RenderDiagramPreview(result);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                var exMsg = ex.GetDeepestInnerException();
+
+                ConsoleRenderer.RenderError(exMsg?.Message ?? ex.ToString());
+
+                return string.Empty;
+            }
         }
     }
 }
